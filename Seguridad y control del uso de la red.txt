@@ -1,0 +1,21 @@
+pdf (red)
+
+- ip -c a (ver las ip)
+- ss -u
+- ss -t
+- ss -s
+- ss -tl (a la escucha)
+- ss -lt4 (a la escucha puertos)
+
+nologin: impide que nadie excepto el root inicie sesion (pdf)
+- echo "sistema en mantenimiento no se puede hacer login"> /ect/nologin
+- at now +4 minutes (rm /ect/nologin)(ctl d) tarea programada 
+tcp Wappers acceder o denegar accesos
+- cat /ect/host.allow
+- nano /ect/hosts.deny (sshd:ALL)
+Xinetd
+- /ect/xinetd.config
+- nano /ect/xinetd.config
+- cd /ect/xinetd.d/
+- ls -l
+- (imagen xinetd ssh)

@@ -31,3 +31,25 @@ sobre sudo:
 -w quien hay y que esta ejecutando
 -last ultimos accesos al sistema
 
+Seguridad y gestion de usuarios:
+- pdf (opciones de usuario)
+- apt install libpam-pwqueality
+- nano /etc/security/pwquality.conf (configurar los parametros para las contraseñas)
+- apt install libpwqueality-tools
+- pwscore:contraseña (da una puntuacion a la contraseña)(50 seria una puntuacion aceptable)
+Bloquear usuarios por accesos fallidos (ataques de fuerza bruta)
+- pdf (opciones de usuario)
+- nano /etc/pam.d/common-auth (imagen)
+
+Procesos:
+- pdf(procesos)
+- ps
+- ps -e
+- ps l
+- pstree
+- htop
+- stress -c -t 5 -i 1 (prueba de estres)
+- htop
+
+
+
