@@ -1,0 +1,8 @@
+#!/bin/sh
+exec tail -n +3 $0
+#comentarios
+# El usuario que se quiera este es un ejemplo para que no sea facil de adivinar
+
+set superusers="ADSG34455HJHLINUX6567"
+password_pbkdf2 ADSG34455HJHLINUX6567 Grub.pbkdf2......
+#Contraseña cifrada

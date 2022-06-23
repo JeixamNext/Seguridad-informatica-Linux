@@ -1,0 +1,88 @@
+IPTABLES: esta en el nucleo de linux
+
+- netfiltrer 
+- reglas
+- cadenas
+- tablas
+
+- Al escribir una regla hay que decirle tabla (filter) cadena (entrada y salidas)
+
+- La tabla por defecto es filter. 
+
+- [opciones] accept o drop (rechazar)
+- t tabla
+- A añadir
+- p puerto
+- j accion 
+- i interfaz de entrada (input)
+- o salida (output)
+
+Mas info en el pdf
+
+- forward (cadena dentro de filtrer para internet)
+- NAT (salida y entrada) 
+--DNAT(entrada)
+--SNAT(salida)
+-tabla NAT:
+-- cadenas: input/ouput/prerouting/postrouting-
+
+- destination nat (abrir puertos) (se hace en prerouting)
+
+- postrouting traduce las ip privada y publica y las traduce para enrutar
+-- SNAT/NAT/POSTROUTING (orden)
+
+EJMPLOS:
+
+- ip -c a (ver tu ip inet)
+- iptables -L (lista de tablas)
+- iptables -t filter -A INPUT -p icmp -j DROP (impedir que le hagan ping)
+- iptables -L nv 
+- iptables -D INPUT 1 (elimina la regla input 1)
+- iptables -F (borrar todo)
+- iptables -t filter -P INPUT DROP (cambia la politica por defecto de entrada de paquetes a rechazar)
+- iptables -t filter -P INPUT ACCEPT
+
+Modulos:
+
+--limit
+
+
+Tabla NAT (de conexion a internet)
+
+- SNAT
+- ip -r (ver la puerta de enlace)
+- ip r delete (ip -r)
+- ip r add default via IP(dispositivo que tendra el fireware) dev (dispositivo) onlink
+(en la maquina del fireware)(activarlo como router)
+- echo 1 > /proc/sys/net/ipv4/ip_forward ( escribe un 1 en ese fichero)
+- iptables -t nat -L (para ver reglas de la tabla nat)
+- iptables -t nat -A POSTROUTING -j MASQUERADE (enmascarar la ip privada y convertirla en la publica)
+
+
+Monitorizar conexiones: LOGs
+
+- iptables -A FORWARD -j LOG
+-- tail/var/log/syslog/ (ver logs)
+-- tail/var/log/kern.log/ 
+- iptables -A FORWARD -j LOG --log-prefix "SNAT >>" (crea una etiqueta y filtra poniendo solo esos mensajes)
+- apt install conntrack (interfaz para traquear conexiones de netfilter)(hace registros de log y permite hacer consultas)
+- conntrack -l -n 
+- conntrack -L -p udp
+- conntrack -L -s ip
+
+Otras tablas:
+
+-Mangle
+(pdf)
+
+############################################################################################################################################
+
+mas info:
+
+https://www.incibe.es/extfrontinteco/img/File/demostrador/monografico_catalogo_seguridad_perimetral.pdf
+
+https://www.dell.com/learn/tc/es/tcbsdt1/sb360/sb-newsletter-3-2012-3
+
+https://www.ccn-cert.cni.es/series-ccn-stic/guias-de-acceso-publico-ccn-stic/74-ccn-stic-408-seguridad-perimetral-cortafuegos/file.html
+
+##########################################################################################################################################################

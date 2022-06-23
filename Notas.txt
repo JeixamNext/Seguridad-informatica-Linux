@@ -1,0 +1,94 @@
+Defensa en profundidad: sistema por capas
+
+1- Usuarios
+2- Acceso fisico
+3- Hacking (internet)
+4- Red interna
+5- S.O (sistema operativo)
+6- Software
+7- Datos
+
+2: Acceso al Hadware 
+
+- proteccion de la bios
+-- se guarda en la pila (por lo que quitarla la borraria)
+- cifrar los discos
+- gestor de arranque (GRUB2 en linux)
+-- se puede cambiar y arrancar como root por lo que es un punto vulnerable
+
+
+-- Bios: proteger la secuencia de arranque 
+	- seguridad: de user(en remoto es problematico) de supervisor (pode contraseña para acceder a las partes de la bios)
+	- proteger fisicamente la para que no quiten la pila
+
+
+-- GRUB
+	- teclear la E en la carga del sistema permite entrar a editar las opciones de GRUB
+	- cambiar RO por RW
+	- cambiar quiet por init=/bin/bash (carga una shell)(en modo Root)
+
+--- GRUB proteger: pedira user y contraseña siempre que entremos
+	- sudo grub-mkpasswd-pbkdf2 (poner contraseña)
+	- copiar la contraseña cifrada en un fichero
+	- nano /ect/grub.d/40_custom (ver txt 40_custom)
+	- update_grub (aplica todo)
+
+-- Cifrar particiones del disco 
+	- LUKS (especificacion de cifrado)
+	-- sudo lsblk (ver las unidades y particiones)
+	-- fdisk /dev/sdb(o como se llame) (hace particiones)
+	--- n (particion nueva) (hacer la particcion)
+	-- blkid (ver particiones y su formato)
+	-- apt install cryptsetup
+	-- cryptsetup luksFormat /dev/sdb1 (creada anterior)(pedira contraseña)
+	-- lsblk -f (ver particiones y su formato)
+	-- nano /ect/cryptottab (ver en txt cryptottab)
+	-- cryptsetup luksOpen/dev/sdb1 sdb1ECRYPTADO
+	-- mkfs.ext4 /dev/mapper/sdb1ECRYPTADO
+	--- cryptsetup luksSuspend db1ECRYPTADO
+	-- nano /ect/fstab (para montar el disco siempre y puedan acceder todos con la contraseña)
+	(/dev/mapper/sdb1ECRYPTADO /media/cifrado ext4 errors-remount-ro 0 2)
+	(crear directorio "cifrado")
+	--- mkdir /media/cifrado/
+
+-- cifrar ficheros 
+	- Veracrypt
+	- dpkg -i ruta.dev
+	- veracrypt -c (hacer el cifrado)
+	- (crear un directorio)	veracrypt cifrado /directorio
+	-  veracrypt -l
+	-  veracrypt -d (salir)
+
+-- cifrar unidades exteriores 
+	- veracrypt -c (poner la particion que se quiere usar, el usb)
+	- veracrypt /dev/sdc1(o como se llame el usb) /media/cifrado/ (directorio)
+	- mount ntfs /dev/mapper/veracrypt1 cifrado/
+	- cd cifrado
+	- ls
+	- veracrypt -d (salir)
+
+################################################################################################################################################
+Enlaces para ampliar información sobre LUKS:
+
+https://es.wikipedia.org/wiki/LUKS
+
+https://wiki.archlinux.org/title/Dm-crypt_(Español)/Encrypting_an_entire_system_(Español)
+
+https://www.redhat.com/sysadmin/disk-encryption-luks
+
+Enlaces para ampliar información sobre Veracrypt:
+
+https://www.veracrypt.fr/en/Home.html
+
+https://es.wikipedia.org/wiki/VeraCrypt
+	
+#############################################################################################################################################333
+
+-- defensa perimetral (desde internet)
+
+	. fireware (principal protector)
+	. IPTABLES/NFTABLES
+	. Snort
+	. dmz
+
+

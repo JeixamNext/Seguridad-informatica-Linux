@@ -1,0 +1,34 @@
+NFTABLES: sustituto moderno de iptables.
+
+(pdf para informacion)
+
+- dpkg -l nftables
+- apt list nftables
+- cat /nft/nftables.conf
+
+Ejemplos:
+
+- nft flush ruleset (borra lo anterior)
+- nft list ruleset
+- nft add table inet mi_filtro (ipv4 y 6)
+- nft add chain inet mi_filtro denegar {type filter hook input priority 0 \; policy accept \;}
+- nft add rule inet mi_filtro denegar ip protocol icmp drop (deniega el ping)
+- nft add rule inet mi_filtro denegar tcp dport 22 counter drop (cuenta y deniega ssh)
+
+SNAT y DNAT
+
+- nft flush ruleset (borra lo anterior)
+- nft add table inet filter
+- nft add table ip nat
+- nft add chain nat prerouting {type nat hook prerouting prioritu 0 \;}
+- nft add chain nat postrouting {type nat hook postrouting prioritu 10 \;}
+- nft add rule ip nat postrouting oif enp0s3(dispositivo) ip saddr 192.168.../24 masquerade  (hace el SNAT)
+- nft add rule ip nat prerouting iif enp0s3(dispositivo) tcp dport 80 dnat to 192.168... (hace el SNAT de un servicio en el peurto 80) 
+
+https://wiki.nftables.org/wiki-nftables/index.php/Main_Page
+
+Aplicar reglas a nftables desde un documento:
+
+- nft -f ruta/regla
+
+

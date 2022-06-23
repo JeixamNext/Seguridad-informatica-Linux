@@ -1,0 +1,33 @@
+(pdf ficheros/usuarios/grupos)
+- sudo -i (root)
+- useradd -d /homedelegado -m -g clase -s /bin/bash jeixam (crea un usuario)
+- id jeixam
+- passwd jeixam (hacer contraseña)
+- passwd -l jeixam (impide que entre al sistema)
+- passwd -u jeixam (desbloquea)
+- chown -r cambia usuario y grupo de forma recursiva 
+- chmod 777 (chmod + r fichero)(chmod u+r,g+w fichero)(chmod 110100100 fichero)
+
+ACL
+(pdf)
+si aparece un + es que tiene permisos extendidos acl (-rw-rwxr--+)
+- lista de control de acceso, permisos mas flexibles y extendidos
+- getfacl archivo (ver permisos con acl)
+- setfacl -m u:jeixam:rw fichero/ setfacl -m u:pru:rwx fichero
+- setfacl -x u:jeixam (elimina los permisos)
+- setfacl -Rm u:jeixam:rw . (de forma recursiva el directorio actual)
+- getfacl *
+- setfacl -dm u:jeixam:rw,u:pru:rwx .
+Atributos
+(pdf)
+- lsattr fichero (ver atributos)(propiedades especiales)
+(ser super usuario )
+- chattr +i
+- chattr -i
+
+sobre sudo:
+(pdf seguridad)
+-who quien esta identificado
+-w quien hay y que esta ejecutando
+-last ultimos accesos al sistema
+

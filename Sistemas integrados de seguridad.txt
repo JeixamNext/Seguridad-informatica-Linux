@@ -1,0 +1,16 @@
+Distribuciones de seguridad:
+
+- Security Onion
+- IPFire
+- Endian
+- OPNSense
+- Pfsense
+
+https://securityonionsolutions.com/
+https://www.ipfire.org/
+https://www.endian.com/de/
+https://opnsense.org/
+https://www.pfsense.org/
+
+
+

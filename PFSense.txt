@@ -1,0 +1,52 @@
+https://www.pfsense.org/
+https://docs.netgate.com/pfsense/en/latest/config/
+
+distribucion integrada de seguridad.
+
+- desde el navegador acceder a la maquina HTTPS://192.168.1.1 (o la que sea)
+- admin/pfsense (por defecto)
+ejemplo: 192.168.18.0 para la WAN (publica) 10.0.0.1 para la red interna (LAN)
+- completar la configuarion y configurar los paneles
+- diagnostico,copia de seguridad y restauracion (para obtener respaldo xml)
+- ip a add 10.0.0.5/24 dev dispositivo (para cambiar la ip)
+
+reglas del Fireware:
+
+- sistema/reglas
+- Sistema/gerente de empaquetacion/paquetes disponibles:Snort
+- configurar snort
+- Activar y configurar reglas de snort
+- bloqueo de ips: (imagen)(bloque las ips segun las reglas)
+- crear una pass list (imagen) (usar un alias para tener varias ips facil)
+- asignar pass list interfaz editar + (imagen) 
+
+PFBLOCKERNG
+- bloquea ips sin usar un ips (o dns)
+- Sistema/gerente de empaquetacion/paquetes disponibles: PFblockerNG-developer
+- Fireware
+- wlan:entrada
+- activar reglas (feeds)
+- dig google.com (consular direccion)
+- cambiar el dns (imagen)(ponerte tu como DNS)(imagen dns resolver activado)
+
+Usar el fireware para obligar un dns 
+
+- fireware/reglas/LAN: UDP, source:LAN Net destino: LAN ADDRESS
+- Bloquear el resto de DNS
+
+instalar un proxy: intermediario de trafico usuarios e internet
+
+- Proxy Squid
+- Sistema/gerente de empaquetacion/paquetes disponibles:squid y squidGuard
+- Servicios/proxy
+- Local cache:1024 cache size/Sistema: aufs/ casilla dinamic
+- resolver DNS/desamblar ICMP/ habilitar trasparente http proxy
+- crear certificado (imagen) https
+- Proxy https/ssl habilitar SSL filtering/ modo: Splice All
+- activar Squid Guard
+- descargar blackList: http://www.squidguard.org/blacklists.html
+
+Mas servicios:
+ - portal cautivo: con user manager: para que solo permita navegar con un usuario
+ - openVPN
+

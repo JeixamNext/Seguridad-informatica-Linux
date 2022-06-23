@@ -1,0 +1,43 @@
+VPN: red privada virtual 
+
+- eviata espias 
+- privacidad 
+- open vpn
+- cifrar la conexion
+
+crear una vpn
+
+- apt install openvpn 
+- /etc/openvpn
+- cp /usr/share/doc/openvpn/examples/simple-config-files/server.config.gz .
+- mkdir keys (crear una llave segura) o cp /usr/share/doc/openvpn/examples/{ca.crt,server.key,dh248.pem,server.crt.gz} .
+(mirar imagenes del .config)
+- gunzip server.crt.gz
+- nano server.conf (ect/openvpn)
+(generar llave)
+- openvpn --genkey --secret ta.key (crear tus propias claves en /etc/openvpn/keys/ta.key )
+Lanzar el vpn
+- openvpn --config ruta/server.config 
+- ip -c a (ver la ip y el tunel creado)
+(en el cliente)
+- apt install openvpn
+- /etc/openvpn 
+- cp /usr/share/doc/openvpn/examples/simple-config-files/client.config .
+- mkdir keys 
+- cp /usr/share/doc/openvpn/examples/sample-keys/{ca.crt,client.crt.gz,client.key} .
+- gunzip client.crt.gz
+- nano client.config (ect/openvpn)
+- (ver imagenes client.config)
+- copiar la llave generada en el server 
+- openvpn --config ruta/client.config 
+- ip r (ver rutas)
+
+red con usuarios y contraseña 
+
+-dpkg -L opnevpn (lista de todo lo que tiene)
+- nano/server.conf (ect/openvpn)
+(imagen auth vpn +) commont-auth 
+- openvpn --config ruta/server.config
+(en el cliente)
+- nano/client.conf (ect/openvpn)
+- openvpn --config ruta/client.config

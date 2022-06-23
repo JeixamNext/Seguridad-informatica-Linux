@@ -1,0 +1,58 @@
+Ataques internos:
+
+- Envenenamiento de ARP (ARP Spoofing): conectado a la red escuchando envia paquetes ARP replay suplantando a la ip/mac destino e interceptando la comunicacion y suplantando a la puerta de enlace  
+(https://www.redeszone.net/tutoriales/internet/que-es-protocolo-arp/)
+(se hace pasar por la puerta de enlace)	
+	evitar:
+	- utilizar ARP tablas estaticas(pocas ips); ip neighbor add ip lladdr mac dev dispositivo nud permanent 
+	- monitorizar cambios ARP (arpwatch) o programas similares
+	- crear varias subredes
+	- utilizar un switch anti spoofing
+	- utilizar VPN
+
+Como realizarlo: kali: atacante deb: atacado
+###########################################################################################################################################################################################################################
+- sudo apt search dsniff
+- sudo apt install dsniff
+- arpspoof 
+- ip n (ver tablas arp)
+###########################################################################################################################################################################################################################
+- (kali) sudo arpspoof -i eth0(dispositivo) -t 192.162.18.100(ip atacante)192.162.18.1(ip atacado)(imagen)
+- (deb) ip n
+- (kali) sudo -i echo 1 > /proc/sys/net/ipv4/ip_forward (enruta los paquetes y simula ser la puerta de enlace)(escribe un 1 en ese documento)(imagen)
+- (deb) tendra internet
+
+(kali ya la incluye)
+###########################################################################################################################################################################################################################
+- Sniffing and Spoofing
+- buscar
+- add target 1 (atacado)
+- add target 2 (puerta de enlace)
+- ARP poisoing
+###########################################################################################################################################################################################################################
+
+Como protegerse: 
+###########################################################################################################################################################################################################################
+- (deb) apt install arpon
+- nano ect/default/arpon (descomentar y solo dejar demmon_args--harpi)(interfaces="enp0s3")
+- systemctl enable arpon@enp0s3(dispositivo)
+- systemctl start arpon@enp0s3
+- ps -eF | grep arpon (ver el proceso)
+- tail /var/log/arpon/arpon.log
+###########################################################################################################################################################################################################################
+
+
+- ICMP Redirect: ataque que consiste en usar un paquete ICMP (avisa al router de una routa mas rapida para llegar a un lugar) Envia paquetes falsos a la victima para que se rediriga hacia el 
+	- protegerse: poner a 0 /proc/sys/net/ipv4/config/all/accept_redirects
+	- hping3 para ver si se es vulnerable
+
+- DHCP spoofing: poner DHCP falso para espiar 
+	- usar DHCP snooping: verifica por que puerto esta permitido pasar el DHCP y bloquea los DHCP que no sean del puerto autorizado.
+	
+
+enlaces:
+https://www.monografias.com/trabajos107/seguridad-redes-spoofing/seguridad-redes-spoofing
+https://es.wikipedia.org/wiki/Snooping_DHCP
+https://www.ionos.es/digitalguide/servidores/seguridad/dhcp-snooping/
+https://community.cisco.com/t5/blogs-routing-y-switching/configurando-dhcp-snooping/ba-p/3101169
+

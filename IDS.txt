@@ -1,0 +1,31 @@
+(ver pdf snort)
+
+- DMZ
+- Red interna
+
+Sistema de deteccion de intrusos:
+
+-SNORT
+instalar SNORT:
+- apt install snort 
+- systemctl status snort.service (ver que esta activo)
+- systemctl restart snort 
+los log salen en formato binario u otros
+- u2spewfoo snort.log (programa de snort que permite leer los logs en formato unifi)
+- auth.log (contiene los logs)
+- wget https://www.snort.org/downloads/community/community-rules.tar.gz (descarga)
+- tar -xzg community-rules.tar.gz (descomprime)
+- less sid-msg.map (muestra las reglas mas ordenadas)
+- mv community rules a /ect/snort/rules
+- nano /ect/snort/snort.conf (incluir las reglas descargadas)
+- systemctl restart snort
+
+https://www.snort.org/
+
+ejemplos:
+- nmap -v -sT -O ip (escaneo)
+- journalctl -u snort -S "5 min ago" (ver lo que ha pasado en 5 min)(veremos las alertas del scan nmap)
+
+https://www.incibe-cert.es/sites/default/files/contenidos/guias/doc/certsi_diseno_configuracion_ips_ids_siem_en_sci.pdf
+https://www.incibe-cert.es/seminarios-web/reglas-snort
+
