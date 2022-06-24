@@ -1,0 +1,32 @@
+Sistema de deteccion de intrusos (ids)
+
+- (pdf)
+- https://github.com/ossec
+- https://www.ossec.net/docs/docs/manual/installation/index.html
+####################################################################################################################################################################
+- apt-get install build-essential make zlib1g-dev libpcre2-dev libevent-dev libssl-dev
+- apt-get install libz-dev
+- apt-get install build-essential zlib1g-dev
+- apt-get install libpcre2-dev
+- apt-get install libsqlite3-dev
+BBDD
+- apt-get install mysql-dev postgresql-dev
+- apt-get install default-libmysqlclient-dev libmariadb-dev-compat
+####################################################################################################################################################################
+- ./install.sh
+- cd /var/ossec/
+- ./bin/ossec-control start (lo inicia demons)
+- cd /var/ossec/logs (alertas)
+- find
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Generar una alerta para comprobar: generar una entrada fallida
+- ssh jeixam@localhost
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+- less/cat alerts.log
+- cat active-responses.log 
+- iptables -L (o nft list ruleset)
+Configuracion del sistema:
+- nano ect/ossec.config (xml)
+Interfaz we OSSEC
+- setup.sh
+- tener php
