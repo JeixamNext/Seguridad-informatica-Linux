@@ -1,0 +1,56 @@
+AppArmor: sistema de control obligatorio de acceso. 
+(pdf)
+- Modulo a nivel de nucleo que preguntara a AppArmor antes para saber si un proceso esta autorizado a realizar una operacion
+- apparmor_status
+- cd etc/apparmor.d (perfiles)(contiene ruta y permisos)
+- cd etc/apparmor.d/abstractions
+- aa-status (apparmor_status)
+- apt install apparmor-utils
+
+Controlar un proceso con AppArmor: complein (modo aviso)
+- nano /etc/apparmor.d/bin.ping (ejemplo)
+- apparmor_parser -r /etc/apparmor.d/bin.ping (recargar)
+- aa-enforce /etc/apparmor.d/bin.ping (lo carga en modo enforce)
+- apt serach apache2| grep apparmor (ejemplo)
+- (frenar apache) aa-enforce usr..sbin.apache2 (reiniciar apache)
+
+
+SELINUX:sistema de control obligatorio de acceso M.A.C creado por red hat y NSA
+(pdf)
+- apt install selinux-basics selinux-policy-default
+- sestatus (estara desabilitado por defecto)
+- selinux (tab)
+- selinux-activate 
+- ls -lZ
+- geetsebool -a (valores activos o inactivos)
+- setsebool consolelog=off (ejemplo)
+- semanage port -l (listar los puertos)
+- semanage port -a 2558 -t ssh_port_t -p tcp (cambiar el puerto permitido)
+- semanage port -d 22 -t ssh_port_t -p tcp
+
+SSH: proteger conexiones mediante cifrado
+(pdf)
+- Recomendable cambiar el puerto 22 para que no sea tan intuitivo 
+- llaves privadas mejor en 700 de permisos
+- ssh-keygen
+- ssh user@ip 
+- scp .ssh/esa.pub ip_destino:/root/clave_cliente (copia la clave publica por ssh)
+- cat clave_cliente >> .ssh/authorized_keys (lo añade)
+- rm clave_cliente
+- tunel ssh: ssh -N -f -L 8080:ip(remoto):80 root ip(mia) (al entrar en mi puerto 8080 ire al 80 del remoto por el tunel)
+
+configurar el SSH
+
+- nano /etc/ssh/sshd.config
+
+
+GPG: Sirve para cifrar un fichero usando claves asimétricas.
+(pdf)
+- gpg --gen-key
+- gpg --list-key
+- gpg --output clave-publica,pub --export d63g4hr68n5if753g3j (gpg --list-key)
+- ls -l clave-publica.pub
+- scp clave-publica.pub ip(destino):/root/
+- (destino) gpg --import clave-publica.pub
+- gpg --encrypt --recipient D7644k474h(gpg:key) ect/service (por ejemplo)(genera el gpg)
+- 

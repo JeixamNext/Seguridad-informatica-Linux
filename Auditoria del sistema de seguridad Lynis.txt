@@ -1,0 +1,9 @@
+Lynis:escanea el sistema desde dentro 
+
+https://www.redeszone.net/tutoriales/seguridad/lynis-auditoria-seguridad-linux/
+https://github.com/CISOfy/Lynis
+
+- apt install lynis
+- git clone https://github.com/CISOfy/lynis.git (usr/local/)
+- ./lynis
+- ./lynis audit system

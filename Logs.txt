@@ -1,0 +1,32 @@
+Mantener un registro de lo que sucede en el sistema, es importante para conocer y optimizar el suncionamiento del sisitema.
+Las maneras mas populares de gestionar loa registros son:
+
+- rsyslog: gestor tradicional de linux para getionar diversos ficheros de texto plano
+- systemd-journald: mantiene un registro sofisticado y seguro pero menos abierto a otros programas (los guarda en unos binarios)
+
+- /var/log lugar donde encontrar los logs del sistema 
+
+RSYSLOG:
+https://blog.alcancelibre.org/staticpages/index.php/configuracion-rsyslog
+
+- La configuracion esta en: ect/rsyslog.conf o ficheros ect/rsyslog.d
+- facility(tipo de mensaje:auth,demon,syslog,user,mail,ftp,ect).priority(prioridad:debug,warning,info,alert,notice,err,ect)
+- systemctl status rsyslog
+- cd ect
+- cat rsyslog.conf
+- cd log
+- tail -f syslog
+
+SYSTEMD: utiliza su propio gestor de log
+
+- journalctl: consultar los log del sistema
+- -S(desde) -U(hasta) -u(unidad) -k(kernel) -p(tipo:alert,warning,debug,ect)
+- PARAM=VALUE
+- journalctl -S 2019-01-01 -U now
+- journalctl -S today
+- journalctl -S "3 day ago" (desde hace)
+- journalctl -u networking.service 
+- journalctl -u cron
+- journalctl -p err
+- journalctl -p warming 
+- man systemd.journal.fields  
