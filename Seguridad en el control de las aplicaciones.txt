@@ -53,4 +53,9 @@ GPG: Sirve para cifrar un fichero usando claves asimétricas.
 - scp clave-publica.pub ip(destino):/root/
 - (destino) gpg --import clave-publica.pub
 - gpg --encrypt --recipient D7644k474h(gpg:key) ect/service (por ejemplo)(genera el gpg)
-- 
+- scp ect/service.gpg ip:/root/
+- gpg service.gpg
+firmar:
+- gpg --sign archivo.txt (archivo.gpg)
+- scp archivo.gpg ip(destino):/root/
+- gpg --verify archivo.gpg
